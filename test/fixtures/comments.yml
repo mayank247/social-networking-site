@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  status_update_id: 1
+  user_id: 1
+  body: MyText
+  timestamp: 2013-02-09 12:53:18
+
+two:
+  status_update_id: 1
+  user_id: 1
+  body: MyText
+  timestamp: 2013-02-09 12:53:18
