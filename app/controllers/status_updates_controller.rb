@@ -1,4 +1,5 @@
 class StatusUpdatesController < ApplicationController
+	before_filter :authenticate_user!
   # GET /status_updates
   # GET /status_updates.json
   def index
@@ -14,7 +15,7 @@ class StatusUpdatesController < ApplicationController
   # GET /status_updates/1.json
   def show
     @status_update = StatusUpdate.find(params[:id])
-
+		
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @status_update }

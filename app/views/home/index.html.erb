@@ -1,9 +1,9 @@
 <h1><center>Social Networking Site</center></h1>
 <% if current_user %>
-	<h3>Welcome user</h3>
+	<h3>Welcome <%= current_user.name %></h3>
 	<%= link_to 'Edit your profile', edit_user_registration_path %><br />
 	<%= link_to 'Friends', new_friend_path %><br />
-	<%= link_to 'Status Update', new_status_update_path %><br />
+	<%= link_to 'Status Update', status_updates_path %><br />
 	<%= link_to 'logout', destroy_user_session_path, :method => :delete %><br />
 <% else %>
 	<h3>Welcome Guest</h3>

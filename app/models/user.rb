@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
   has_many :status_updates
   has_many :to_user_update, :class_name => "StatusUpdate"
   has_many :comments
+  has_many :likes
 end

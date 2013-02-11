@@ -19,7 +19,47 @@
   <b>Timestamp:</b>
   <%= @status_update.timestamp %>
 </p>
+<%= link_to 'Like', new_status_update_like_path(@status_update) %>
 
 
 <%= link_to 'Edit', edit_status_update_path(@status_update) %> |
 <%= link_to 'Back', status_updates_path %>
+
+<h3>Comments</h3>
+	<% @status_update.comments.each do |comment| %>
+  <p>
+    <b>
+    <%= comment.user_id %>&nbsp;&nbsp;
+    <%= comment.status_update_id %>: </b>
+
+    <%= comment.body %>&nbsp;&nbsp;<%= comment.timestamp %>
+		<%= link_to 'Delete Comment', [comment.status_update, comment],
+               :confirm => 'Are you sure?',
+               :method => :delete %>
+  </p>
+<% end %>
+
+<h3>Add a comment:</h3>
+<%= form_for([@status_update, @status_update.comments.build]) do |f| %>
+	<div class="field">
+    <%= f.label :status_update_id %><br />
+    <%= f.text_field :status_update_id %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </div>
+  <div>
+    <%= f.label :timestamp %><br />
+    <%= f.date_select :timestamp, :start_year => Time.now.year - 18, :end_year => Time.now.year - 60 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
