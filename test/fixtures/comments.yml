@@ -4,10 +4,12 @@ one:
   status_update_id: 1
   user_id: 1
   body: MyText
-  timestamp: 2013-02-09 12:53:18
+  timestamp: 2013-02-09 14:12:04
+  status_update: 
 
 two:
   status_update_id: 1
   user_id: 1
   body: MyText
-  timestamp: 2013-02-09 12:53:18
+  timestamp: 2013-02-09 14:12:04
+  status_update: 
