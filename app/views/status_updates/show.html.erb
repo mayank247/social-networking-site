@@ -1,15 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<p><b>
   <b>User:</b>
   <%= @status_update.user_id %>
-</p>
-
-<p>
-  <b>To user:</b>
-  <%= @status_update.to_user_id %>
-</p>
-
+</b></p>
 <p>
   <b>Body:</b>
   <%= @status_update.body %>
@@ -17,49 +11,44 @@
 
 <p>
   <b>Timestamp:</b>
-  <%= @status_update.timestamp %>
+  <%= @status_update.timestamp %>&nbsp;&nbsp;<%= link_to 'Like', new_status_update_like_path(@status_update) %> | <%= link_to 'Edit', edit_status_update_path(@status_update) %>
 </p>
-<%= link_to 'Like', new_status_update_like_path(@status_update) %>
-
-
-<%= link_to 'Edit', edit_status_update_path(@status_update) %> |
-<%= link_to 'Back', status_updates_path %>
-
+<table>
 <h3>Comments</h3>
 	<% @status_update.comments.each do |comment| %>
   <p>
-    <b>
-    <%= comment.user_id %>&nbsp;&nbsp;
-    <%= comment.status_update_id %>: </b>
-
-    <%= comment.body %>&nbsp;&nbsp;<%= comment.timestamp %>
-		<%= link_to 'Delete Comment', [comment.status_update, comment],
+    <tr>
+			<td><b><%= comment.user_id %>: </b></td>
+			<td><%= comment.body %></td>
+			<td><%= comment.timestamp %></td>
+			<td><%= link_to 'Delete', [comment.status_update, comment],
                :confirm => 'Are you sure?',
-               :method => :delete %>
+               :method => :delete %></td>
+    </tr>
   </p>
 <% end %>
+</table>
 
 <h3>Add a comment:</h3>
 <%= form_for([@status_update, @status_update.comments.build]) do |f| %>
 	<div class="field">
-    <%= f.label :status_update_id %><br />
-    <%= f.text_field :status_update_id %>
+    <%= f.hidden_field(:status_update_id, :value => @status_update.id) %>
   </div>
   
   <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%= f.hidden_field(:user_id, :value => current_user.id) %>
   </div>
 
   <div class="field">
     <%= f.label :body %><br />
     <%= f.text_area :body %>
   </div>
-  <div>
-    <%= f.label :timestamp %><br />
-    <%= f.date_select :timestamp, :start_year => Time.now.year - 18, :end_year => Time.now.year - 60 %>
+  <div class="field">
+    <%= f.hidden_field(:timestamp, :value => Time.now) %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :value => "Comment" %>
   </div>
 <% end %>
+
+<%= link_to 'Back', status_updates_path %>
