@@ -1,9 +1,9 @@
-<h1>Listing friends</h1>
+<h1>All Registered Users</h1>
 
 <table>
   <tr>
-    <th>User</th>
-    <th>To user</th>
+    <th>User Name</th>
+    <th>Email</th>
     <th>Status</th>
     <th></th>
     <th></th>
@@ -12,12 +12,8 @@
 
 <% @friends.each do |friend| %>
   <tr>
-    <td><%= friend.user_id %></td>
-    <td><%= friend.to_user_id %></td>
-    <td><%= friend.status %></td>
-    <td><%= link_to 'Show', friend %></td>
-    <td><%= link_to 'Edit', edit_friend_path(friend) %></td>
-    <td><%= link_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><b><%= friend.name %></b></td>
+    <td><%= friend.email %></td>
   </tr>
 <% end %>
 </table>

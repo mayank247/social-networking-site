@@ -3,11 +3,12 @@ SocialNetwork::Application.routes.draw do
 
   resources :status_updates do
 		resources :comments do
-			resources :likes
+			resources :like_comments
 		end
 		resources :likes
 	end
-
+	
+	#resources :like_comments
 	
   resources :friends
 

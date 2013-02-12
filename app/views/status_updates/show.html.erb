@@ -2,7 +2,7 @@
 
 <p><b>
   <b>User:</b>
-  <%= @status_update.user_id %>
+  <%= @status_update.user.name %>
 </b></p>
 <p>
   <b>Body:</b>
@@ -18,12 +18,15 @@
 	<% @status_update.comments.each do |comment| %>
   <p>
     <tr>
-			<td><b><%= comment.user_id %>: </b></td>
+			<td><b><%= comment.user.name %>: </b></td>
 			<td><%= comment.body %></td>
-			<td><%= comment.timestamp %></td>
-			<td><%= link_to 'Delete', [comment.status_update, comment],
+			<td><%= comment.timestamp %> | </td>
+			<td><%= link_to 'Like', new_status_update_comment_like_comment_path(@status_update, comment) %></td>
+			<% if current_user.id == comment.user_id %>
+				<td> | <%= link_to 'Delete', [comment.status_update, comment],
                :confirm => 'Are you sure?',
                :method => :delete %></td>
+      <% end %>
     </tr>
   </p>
 <% end %>

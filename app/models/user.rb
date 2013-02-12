@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_many :friends
   has_many :to_users, :class_name => "Friend"
-  has_many :status_updates
-  has_many :to_user_update, :class_name => "StatusUpdate"
-  has_many :comments
-  has_many :likes
+  has_many :status_updates, :dependent => :destroy
+  has_many :to_user_update, :class_name => "StatusUpdate", :dependent => :destroy
+  has_many :comments, :dependent => :destroy
+  has_many :likes, :dependent => :destroy
 end
