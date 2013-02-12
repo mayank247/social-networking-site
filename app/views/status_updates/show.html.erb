@@ -13,11 +13,12 @@
   <b>Timestamp:</b>
   <%= @status_update.timestamp %>&nbsp;&nbsp;
   <% i=0 %>
+  <% count=0 %>
   <% @status_update.likes.each do |like| %>
+		<% count += 1 %>
 		<% if like.user_id == current_user.id %>
 			<% i=1 %>
 			<%= link_to 'Unlike', status_update_like_path(@status_update, like), :method => :delete %>
-			<% break %>
 		<% else %>
 			<% i=0 %>
 		<% end %>
@@ -25,22 +26,25 @@
   <% if i==0 %>
 		<%= link_to 'Like', new_status_update_like_path(@status_update) %>
   <% end %>
+   | Total Likes : <%= count %>
 </p>
 
 <table>
 <h3>Comments</h3>
+	<% count=0 %>
 	<% @status_update.comments.each do |comment| %>
 	<% j=0 %>
   <p>
     <tr>
 			<td><b><%= comment.user.name %>: </b></td>
 			<td><%= comment.body %></td>
-			<td><%= comment.timestamp %> | </td>
+			<td><%= comment.timestamp.strftime("%I:%M %p %b %d, %Y") %> | </td>
 			<% comment.likes.each do |like| %>
+				<% count += 1 %>
 				<% if like.user_id == current_user.id %>				
 					<% j=1 %>
 					<td><%= link_to 'Unlike', status_update_comment_like_comment_path(@status_update, comment, like), :method => :delete %></td>
-					<% break %>
+					
 				<% else %>
 					<% j=0 %>
 				<% end %>
@@ -48,7 +52,7 @@
 			<% if j==0 %>
 				<td><%= link_to 'Like', new_status_update_comment_like_comment_path(@status_update, comment) %></td>
 			<% end %>
-			
+			  <td> | Total Likes : <%= count %></td>
 			<% if current_user.id == comment.user_id || current_user.id == @status_update.user_id %>
 				<td> | <%= link_to 'Delete', [comment.status_update, comment],
                :confirm => 'Are you sure?',
@@ -74,7 +78,7 @@
     <%= f.text_area :body %>
   </div>
   <div class="field">
-    <%= f.hidden_field(:timestamp, :value => Time.now) %>
+    <%= f.hidden_field(:timestamp, :value => Time.now.strftime("%I:%M:%S %p %b %d, %Y")) %>
   </div>
   <div class="actions">
     <%= f.submit :value => "Comment" %>
