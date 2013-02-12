@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130209072318) do
+ActiveRecord::Schema.define(:version => 20130209104755) do
 
   create_table "comments", :force => true do |t|
     t.integer  "status_update_id"
@@ -22,10 +22,20 @@ ActiveRecord::Schema.define(:version => 20130209072318) do
     t.datetime "updated_at",       :null => false
   end
 
+  add_index "comments", ["status_update_id"], :name => "index_comments_on_status_update_id"
+
   create_table "friends", :force => true do |t|
     t.integer  "user_id"
     t.integer  "to_user_id"
     t.boolean  "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "likes", :force => true do |t|
+    t.integer  "liker_id"
+    t.string   "liker_type"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -54,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20130209072318) do
     t.datetime "updated_at",                             :null => false
     t.string   "name",                   :default => "", :null => false
     t.string   "gender",                 :default => "", :null => false
-    t.date     "dob",                                    :null => false
+    t.date     "dob"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
