@@ -50,7 +50,10 @@ class FriendsController < ApplicationController
 				if @friend.status == true
 					@friende = Friend.where("user_id=? AND to_user_id=?", @friend.to_user_id, @friend.user_id)[0]
 					debugger
-					#redirect_to friend_path(@friende, :method => :put ) 
+					if @friende.update_attribute(:status, true)
+						format.html { redirect_to friends_path }
+						format.json { head :no_content }
+        	end
 				else
 					format.html { redirect_to new_friend_path, notice: 'Friend was successfully created.' }
 					format.json { render json: new_friend_path, status: :created, location: new_friend_path }
@@ -68,7 +71,7 @@ class FriendsController < ApplicationController
     @friend = Friend.find(params[:id])
 		debugger
     respond_to do |format|
-      if @friend.update_attributes(:status => true)
+      if @friend.update_attribute(:status, true)
         format.html { redirect_to friends_path }
         format.json { head :no_content }
         
