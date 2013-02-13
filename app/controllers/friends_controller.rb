@@ -3,8 +3,8 @@ class FriendsController < ApplicationController
   # GET /friends
   # GET /friends.json
   def index
-    @friends = User.all
-		
+    @users = User.all
+		@friende = Friend.new
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @friends }
@@ -26,7 +26,7 @@ class FriendsController < ApplicationController
   # GET /friends/new.json
   def new
     @friend = Friend.new
-
+		@users = User.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @friend }
@@ -41,12 +41,20 @@ class FriendsController < ApplicationController
   # POST /friends
   # POST /friends.json
   def create
+		
     @friend = Friend.new(params[:friend])
-
+		
     respond_to do |format|
       if @friend.save
-        format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
-        format.json { render json: @friend, status: :created, location: @friend }
+				
+				if @friend.status == true
+					@friende = Friend.where("user_id=? AND to_user_id=?", @friend.to_user_id, @friend.user_id)[0]
+					debugger
+					#redirect_to friend_path(@friende, :method => :put ) 
+				else
+					format.html { redirect_to new_friend_path, notice: 'Friend was successfully created.' }
+					format.json { render json: new_friend_path, status: :created, location: new_friend_path }
+				end
       else
         format.html { render action: "new" }
         format.json { render json: @friend.errors, status: :unprocessable_entity }
@@ -58,14 +66,12 @@ class FriendsController < ApplicationController
   # PUT /friends/1.json
   def update
     @friend = Friend.find(params[:id])
-
+		debugger
     respond_to do |format|
-      if @friend.update_attributes(params[:friend])
-        format.html { redirect_to @friend, notice: 'Friend was successfully updated.' }
+      if @friend.update_attributes(:status => true)
+        format.html { redirect_to friends_path }
         format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @friend.errors, status: :unprocessable_entity }
+        
       end
     end
   end
@@ -77,8 +83,12 @@ class FriendsController < ApplicationController
     @friend.destroy
 
     respond_to do |format|
-      format.html { redirect_to friends_url }
+      format.html { redirect_to friends_path }
       format.json { head :no_content }
     end
+  end
+  
+  def confirm
+		
   end
 end

@@ -1,23 +1,38 @@
-<h1>All Registered Users</h1>
+<h1>Friend List</h1>
 
 <table>
   <tr>
     <th>User Name</th>
     <th>Email</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
-
-<% @friends.each do |friend| %>
-  <tr>
-    <td><b><%= friend.name %></b></td>
-    <td><%= friend.email %></td>
-  </tr>
+<% i=0 %>
+<% @users.each do |user| %>
+		
+    <% Friend.where("to_user_id=?", current_user.id).each do |friend| %>
+    
+			<% if friend.user_id == user.id %>
+			<tr>
+				<td><b><%= user.name %></b></td>
+				<td><%= user.email %></td>
+				<% if friend.status == true %>
+						<% i=1 %>			
+				<% else %>
+					<%= form_for(@friende) do |f| %>
+					<%= f.hidden_field(:user_id, :value => current_user.id) %>
+					<%= f.hidden_field(:to_user_id, :value => user.id) %>
+					<%= f.hidden_field(:status, :value => true) %>
+					<td><%= f.submit "Confirm?" %></td><% end %><td><%= button_to 'Cancel', friend, method: :delete %></td>
+				<% end %>
+				<% break %>
+			</tr>
+			<% end %>
+		<% end %>
+<% end %>
+<% if i==0 %>
+Empty Friends List 
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Friend', new_friend_path %>
+<%= link_to 'Home', root_path %> | <%= link_to 'New Friends or Maintain Friends', new_friend_path %>
