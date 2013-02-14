@@ -49,7 +49,6 @@ class FriendsController < ApplicationController
 				
 				if @friend.status == true
 					@friende = Friend.where("user_id=? AND to_user_id=?", @friend.to_user_id, @friend.user_id)[0]
-					debugger
 					if @friende.update_attribute(:status, true)
 						format.html { redirect_to friends_path }
 						format.json { head :no_content }
@@ -69,7 +68,6 @@ class FriendsController < ApplicationController
   # PUT /friends/1.json
   def update
     @friend = Friend.find(params[:id])
-		debugger
     respond_to do |format|
       if @friend.update_attribute(:status, true)
         format.html { redirect_to friends_path }
@@ -83,15 +81,15 @@ class FriendsController < ApplicationController
   # DELETE /friends/1.json
   def destroy
     @friend = Friend.find(params[:id])
+    if @friend.status == true
+			@friende = Friend.where("user_id=? AND to_user_id=?", @friend.to_user_id, @friend.user_id)[0]
+			@friende.destroy
+		end
     @friend.destroy
-
     respond_to do |format|
       format.html { redirect_to friends_path }
       format.json { head :no_content }
     end
   end
   
-  def confirm
-		
-  end
 end
