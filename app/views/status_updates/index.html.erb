@@ -1,3 +1,6 @@
+<% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+<% end %>
 <h3 align="right">Welcome <%= current_user.name %>,
   &nbsp;&nbsp;&nbsp;
   <%= link_to 'logout', destroy_user_session_path, :method => :delete %></h3>

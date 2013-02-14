@@ -78,9 +78,11 @@ class StatusUpdatesController < ApplicationController
   # DELETE /status_updates/1
   # DELETE /status_updates/1.json
   def destroy
-    @status_update = current_user.status_updates.find(params[:id])
+    @status_update = StatusUpdate.find(params[:id])
     if @status_update.user_id == current_user.id
       @status_update.destroy
+    else
+      flash[:error] = "You don't have permission to delete this post"
     end
 
     respond_to do |format|
