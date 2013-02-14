@@ -1,5 +1,6 @@
-<p id="notice"><%= notice %></p>
-
+<% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+<% end %>
 <p><b>
   <b>User:</b>
   <%= @status_update.user.name %>

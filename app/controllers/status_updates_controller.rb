@@ -78,8 +78,10 @@ class StatusUpdatesController < ApplicationController
   # DELETE /status_updates/1
   # DELETE /status_updates/1.json
   def destroy
-    @status_update = StatusUpdate.find(params[:id])
-    @status_update.destroy
+    @status_update = current_user.status_updates.find(params[:id])
+    if @status_update.user_id == current_user.id
+      @status_update.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to status_updates_url }
