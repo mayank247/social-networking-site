@@ -1,10 +1,15 @@
 class StatusUpdatesController < ApplicationController
-	before_filter :authenticate_user!
+  before_filter :authenticate_user!
   # GET /status_updates
   # GET /status_updates.json
   def index
-    @status_updates = StatusUpdate.all
-		#@user = User.joins(:status_updates)
+    @friend = Friend.where("user_id=? AND status=?", current_user.id, true)
+    items = Array.new
+    items.push current_user.id
+    @friend.each do |f|
+      items.push f.to_user_id
+    end
+    @status_updates = StatusUpdate.where(:user_id => items)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @status_updates }
@@ -15,7 +20,7 @@ class StatusUpdatesController < ApplicationController
   # GET /status_updates/1.json
   def show
     @status_update = StatusUpdate.find(params[:id])
-		
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @status_update }
@@ -26,7 +31,7 @@ class StatusUpdatesController < ApplicationController
   # GET /status_updates/new.json
   def new
     @status_update = StatusUpdate.new
-		
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @status_update }

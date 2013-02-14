@@ -1,19 +1,16 @@
 SocialNetwork::Application.routes.draw do
-
-
   resources :status_updates do
-		resources :comments do
-			resources :like_comments
-		end
-		resources :likes
-	end
-	
-	#resources :like_comments
-	
+    resources :comments do
+      resources :like_comments
+    end
+    resources :likes
+  end
+  
+  #resources :like_comments
+  
   resources :friends
 
-
-	devise_for :users
+  devise_for :users
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

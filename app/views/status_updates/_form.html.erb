@@ -22,7 +22,7 @@
     <%= f.text_area :body %>
   </div>
   <div class="field">
-    <%= f.hidden_field(:timestamp, :value => Time.now) %>
+    <%= f.hidden_field(:timestamp, :value => Time.now.strftime("%I:%M:%S %p %b %d, %Y")) %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,13 +1,33 @@
-<center><h1>Social Networking Site</h1>
+<center><h1>Social Networking Site</h1></center>
 <% if current_user %>
-	<h3>Welcome <%= current_user.name %></h3>
-	<%= link_to 'Edit your profile', edit_user_registration_path %>&nbsp;&nbsp;&nbsp;
-	<%= link_to 'Friends', friends_path %>&nbsp;&nbsp;&nbsp;
-	<%= link_to 'Status Update', status_updates_path %>&nbsp;&nbsp;&nbsp;
-	<%= link_to 'logout', destroy_user_session_path, :method => :delete %><br />
+  <center><h3>Welcome <%= current_user.name %></h3>
+  <% i=0 %>
+  <% @users.each do |user| %>
+    <% Friend.where("to_user_id=?", current_user.id).each do |friend| %>
+      <% if friend.user_id == user.id %>
+        <% if friend.status == false %>
+          <% i += 1 %>      
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= link_to 'Edit your profile', edit_user_registration_path %>&nbsp;&nbsp;&nbsp;
+  <% if i == 0 %>
+    <%= link_to 'Friends', friends_path %>&nbsp;&nbsp;&nbsp;
+  <% else %>
+    <%= link_to "Friends(#{i})", friends_path %>&nbsp;&nbsp;&nbsp;
+  <% end %>
+  <%= link_to 'Status Update', status_updates_path %>&nbsp;&nbsp;&nbsp;
+  <%= link_to 'logout', destroy_user_session_path, :method => :delete %></center><br /><br /><br />
+  <h3><b>Notifications</b></h3>
+  <% if i == 1 %>
+    <%= link_to "#{i} Friend Request", friends_path %>
+  <% elsif i > 1 %>
+    <%= link_to "#{i} Friend Requests", friends_path %>
+  <% end %><br />
 <% else %>
-	<h3>Welcome Guest</h3>
-	<%= link_to 'SignIn', new_user_session_path %>&nbsp;&nbsp;&nbsp;
-	<%= link_to 'SignUp', new_user_registration_path %><br />
+  <center><h3>Welcome Guest</h3>
+  <%= link_to 'SignIn', new_user_session_path %>&nbsp;&nbsp;&nbsp;
+  <%= link_to 'SignUp', new_user_registration_path %><br /></center>
 <% end %>
-</center>
+

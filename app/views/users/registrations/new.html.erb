@@ -9,12 +9,12 @@
   </div>
   
   <div>
-		<%= f.label :gender %><br />
-		<%= f.label :male %>
-		<%= f.radio_button :gender, "Male" %>
-		<%= f.label :female %>
-		<%= f.radio_button :gender, "Female" %>
-	<div>
+    <%= f.label :gender %><br />
+    <%= f.label :male %>
+    <%= f.radio_button :gender, "Male" %>
+    <%= f.label :female %>
+    <%= f.radio_button :gender, "Female" %>
+  <div>
   
   <div>
     <%= f.label :dob %><br />
@@ -33,5 +33,5 @@
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= render "users/shared/links" %>
 <%= link_to "Back", root_path %>
