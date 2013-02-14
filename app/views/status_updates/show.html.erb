@@ -16,9 +16,13 @@
   <% count=0 %>
   <% @status_update.likes.each do |like| %>
     <% count += 1 %>
+  <% end %>
+  <% @status_update.likes.each do |like| %>
+    
     <% if like.user_id == current_user.id %>
       <% i=1 %>
       <%= link_to 'Unlike', status_update_like_path(@status_update, like), :method => :delete %>
+      <% break %>
     <% else %>
       <% i=0 %>
     <% end %>
@@ -26,6 +30,7 @@
   <% if i==0 %>
     <%= link_to 'Like', new_status_update_like_path(@status_update) %>
   <% end %>
+  
    | Total Likes : <%= count %>
 </p>
 
