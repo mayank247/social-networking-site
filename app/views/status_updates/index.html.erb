@@ -24,7 +24,7 @@
     <td><%= status_update.timestamp.strftime("%I:%M %p %b %d, %Y") %></td>
     <td><%= link_to 'Show', status_update %></td>
     <% if current_user.id == status_update.user_id %>
-      <td><%= link_to 'Delete', status_update, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td> | <%= link_to 'Delete', status_update, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>
   </tr>
 <% end %>

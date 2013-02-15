@@ -19,10 +19,12 @@
   <% end %>
   <%= link_to 'Status Update', status_updates_path %>&nbsp;&nbsp;&nbsp;
   <%= link_to 'logout', destroy_user_session_path, :method => :delete %></center><br /><br /><br />
-  <h3><b>Notifications</b></h3>
+  
   <% if i == 1 %>
+    <h3><b>Notification</b></h3>
     <%= link_to "#{i} Friend Request", friends_path %>
   <% elsif i > 1 %>
+    <h3><b>Notification</b></h3>
     <%= link_to "#{i} Friend Requests", friends_path %>
   <% end %><br />
 <% else %>

@@ -10,55 +10,55 @@
     <th></th>
   </tr>
   
-	<% @users.each do |user| %>
-		<% if user.id == current_user.id %>
-			<% next %>
-		<% end %>
-		<% i=0 %>
-		<tr>
-			<td><%= user.name %></td><td><%= user.email %></td>
-			
-			<% current_user.friends.each do |friend| %>
-				<% if friend.user_id == current_user.id && friend.to_user_id == user.id %>
-					<% if friend.status == false %>
-						<td><%= button_to '✓ Friend Request Sent', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-						<% i=1 %>
-					<% else %>
-						<% i=2 %>
-						<td><%= button_to '✔ Friend', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-					<% end %>
-					<% break %>
-				<% else %>
-					<% i=0 %>
-				<% end %>
-			<% end %>
-				<% if i==0 %>
-					<%= form_for(@friend) do |f| %>
-						<% if @friend.errors.any? %>
-							<div id="error_explanation">
-								<h2><%= pluralize(@friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
-								<ul>
-								<% @friend.errors.full_messages.each do |msg| %>
-									<li><%= msg %></li>
-								<% end %>
-								</ul>
-							</div>
-						<% end %>
-			
-						<div class="field">
-							<%= f.hidden_field(:user_id, :value => current_user.id) %>
-						</div>
-						<div class="field">
-							<%= f.hidden_field(:to_user_id, :value => user.id) %>
-						</div>
-						<div class="field">
-							<%= f.hidden_field(:status, :value => false) %>
-						</div>
-						<div class="actions">
-							<td><%= f.submit "Send Friend Request" %></td>
-						</div>
-					<% end %>
-				<% end %>
-		</tr>
-	<% end %>
+  <% @users.each do |user| %>
+    <% if user.id == current_user.id %>
+      <% next %>
+    <% end %>
+    <% i=0 %>
+    <tr>
+      <td><%= user.name %></td><td><%= user.email %></td>
+      
+      <% current_user.friends.each do |friend| %>
+        <% if friend.user_id == current_user.id && friend.to_user_id == user.id %>
+          <% if friend.status == false %>
+            <td><%= button_to '✓ Friend Request Sent', friend, method: :delete, data: { confirm: 'Do you want to cancel sent request?' } %></td>
+            <% i=1 %>
+          <% else %>
+            <% i=2 %>
+            <td><%= button_to '✔ Friend', friend, method: :delete, data: { confirm: 'Do you want to Unfriend?' } %></td>
+          <% end %>
+          <% break %>
+        <% else %>
+          <% i=0 %>
+        <% end %>
+      <% end %>
+        <% if i==0 %>
+          <%= form_for(@friend) do |f| %>
+            <% if @friend.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
+                <ul>
+                <% @friend.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+      
+            <div class="field">
+              <%= f.hidden_field(:user_id, :value => current_user.id) %>
+            </div>
+            <div class="field">
+              <%= f.hidden_field(:to_user_id, :value => user.id) %>
+            </div>
+            <div class="field">
+              <%= f.hidden_field(:status, :value => false) %>
+            </div>
+            <div class="actions">
+              <td><%= f.submit "Send Friend Request" %></td>
+            </div>
+          <% end %>
+        <% end %>
+    </tr>
+  <% end %>
 </table>

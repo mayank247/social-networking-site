@@ -9,7 +9,7 @@ class StatusUpdatesController < ApplicationController
     @friend.each do |f|
       items.push f.to_user_id
     end
-    @status_updates = StatusUpdate.where(:user_id => items)
+    @status_updates = StatusUpdate.where(:user_id => items).order("created_at DESC")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @status_updates }

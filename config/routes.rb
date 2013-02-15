@@ -1,4 +1,5 @@
 SocialNetwork::Application.routes.draw do
+
   resources :status_updates do
     resources :comments do
       resources :like_comments
