@@ -1,3 +1,9 @@
+<script>
+$(document).ready(function(){
+    $("table").hide();
+    $("table").show(2000);
+});
+</script>
 <br /><br />
 <legend>Friend List</legend>
 
@@ -22,9 +28,10 @@
             <%= f.hidden_field(:user_id, :value => current_user.id) %>
             <%= f.hidden_field(:to_user_id, :value => user.id) %>
             <%= f.hidden_field(:status, :value => true) %>
-            <td><%= f.submit "Confirm?", :class => "btn btn-success" %></td>
+            <td><%= f.submit "Confirm?", :class => "btn btn-success" %>
+            <%= link_to 'Cancel', friend, method: :delete, :class => "btn btn-danger" %></td>
           <% end %>
-          <td><%= button_to 'Cancel', friend, method: :delete, :class => "btn btn-danger" %></td>
+          
         <% end %>
         <% break %>
       </tr>
