@@ -1,13 +1,11 @@
+<br /><br /><br />
 <% if flash[:error] %>
       <p class="error"><%= flash[:error] %></p>
 <% end %>
-<h3 align="right">Welcome <%= current_user.name %>,
-  &nbsp;&nbsp;&nbsp;
-  <%= link_to 'logout', destroy_user_session_path, :method => :delete %></h3>
 
-<h1>Status Updates</h1>
+<legend>Status Updates</legend>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>User</th>
     <th>Body</th>
@@ -22,14 +20,14 @@
     <td><%= status_update.user.name %></td>
     <td><%= status_update.body %></td>
     <td><%= status_update.timestamp.strftime("%I:%M %p %b %d, %Y") %></td>
-    <td><%= link_to 'Show', status_update %></td>
+    <td><%= link_to '<i class="icon-fullscreen"></i> Show'.html_safe, status_update, :class => "btn btn-success" %>
     <% if current_user.id == status_update.user_id %>
-      <td> | <%= link_to 'Delete', status_update, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
+      <%= link_to '<i class="icon-trash"></i> Delete'.html_safe, status_update, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
+    <% end %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'Home', root_path %> | <%= link_to 'New Status', new_status_update_path %>
+&nbsp;<%= link_to '<i class="icon-share"></i> New Status'.html_safe, new_status_update_path, :class => "btn btn-info" %>

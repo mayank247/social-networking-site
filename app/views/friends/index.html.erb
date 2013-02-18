@@ -1,32 +1,35 @@
-<h1>Friend List</h1>
+<br /><br />
+<legend>Friend List</legend>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>User Name</th>
     <th>Email</th>
   </tr>
 <% i=0 %>
 <% @users.each do |user| %>
-		
+    
     <% Friend.where("to_user_id=?", current_user.id).each do |friend| %>
     
-			<% if friend.user_id == user.id %>
-			<tr>
-				<td><b><%= user.name %></b></td>
-				<td><%= user.email %></td>
-				<% if friend.status == true %>
-						<% i=1 %>			
-				<% else %>
-					<%= form_for(@friende) do |f| %>
-					<%= f.hidden_field(:user_id, :value => current_user.id) %>
-					<%= f.hidden_field(:to_user_id, :value => user.id) %>
-					<%= f.hidden_field(:status, :value => true) %>
-					<td><%= f.submit "Confirm?" %></td><% end %><td><%= button_to 'Cancel', friend, method: :delete %></td>
-				<% end %>
-				<% break %>
-			</tr>
-			<% end %>
-		<% end %>
+      <% if friend.user_id == user.id %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <% if friend.status == true %>
+            <% i=1 %>     
+        <% else %>
+          <%= form_for(@friende) do |f| %>
+            <%= f.hidden_field(:user_id, :value => current_user.id) %>
+            <%= f.hidden_field(:to_user_id, :value => user.id) %>
+            <%= f.hidden_field(:status, :value => true) %>
+            <td><%= f.submit "Confirm?", :class => "btn btn-success" %></td>
+          <% end %>
+          <td><%= button_to 'Cancel', friend, method: :delete, :class => "btn btn-danger" %></td>
+        <% end %>
+        <% break %>
+      </tr>
+      <% end %>
+    <% end %>
 <% end %>
 <% if i==0 %>
 Empty Friends List 
@@ -34,5 +37,4 @@ Empty Friends List
 </table>
 
 <br />
-
-<%= link_to 'Home', root_path %> | <%= link_to 'New Friends or Maintain Friends', new_friend_path %>
+<%= link_to 'New Friends or Maintain Friends', new_friend_path, :class => "btn btn-info" %>
