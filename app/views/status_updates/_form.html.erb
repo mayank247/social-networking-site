@@ -1,4 +1,5 @@
-<%= form_for(@status_update) do |f| %>
+
+<%= form_for(@status_update, :remote => true, :name => "f1") do |f| %>
   <% if @status_update.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@status_update.errors.count, "error") %> prohibited this status_update from being saved:</h2>
@@ -18,8 +19,8 @@
     <%= f.hidden_field(:to_user_id, :value => current_user.id) %>
   </div>
   <div class="field">
-    <%= f.label :Status %><br />
-    <%= f.text_area :body, :cols => "100", :rows => "5" %>
+    <label>Your Status</label>
+    <%= f.text_area(:body, :rows => "2") %>
   </div>
   <div class="field">
     <%= f.hidden_field(:timestamp, :value => Time.now.strftime("%I:%M:%S %p %b %d, %Y")) %>

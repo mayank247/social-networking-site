@@ -9,11 +9,8 @@ class StatusUpdatesController < ApplicationController
     @friend.each do |f|
       items.push f.to_user_id
     end
+    @status_update = StatusUpdate.new
     @status_updates = StatusUpdate.where(:user_id => items).order("created_at DESC")
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @status_updates }
-    end
   end
 
   # GET /status_updates/1
@@ -47,16 +44,7 @@ class StatusUpdatesController < ApplicationController
   # POST /status_updates.json
   def create
     @status_update = StatusUpdate.new(params[:status_update])
-
-    respond_to do |format|
-      if @status_update.save
-        format.html { redirect_to @status_update, notice: 'Status update was successfully created.' }
-        format.json { render json: @status_update, status: :created, location: @status_update }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @status_update.errors, status: :unprocessable_entity }
-      end
-    end
+    @status_update.save
   end
 
   # PUT /status_updates/1
