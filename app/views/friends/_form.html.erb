@@ -28,11 +28,11 @@ $(document).ready(function(){
       <% current_user.friends.each do |friend| %>
         <% if friend.user_id == current_user.id && friend.to_user_id == user.id %>
           <% if friend.status == false %>
-            <td><%= button_to '✓ Friend Request Sent', friend, method: :delete, data: { confirm: 'Do you want to cancel sent request?' } %></td>
+            <td><%= button_to '✓ Friend Request Sent', friend, method: :delete, data: { confirm: 'Do you want to cancel sent request?' }, :class => "btn btn-warning" %></td>
             <% i=1 %>
           <% else %>
             <% i=2 %>
-            <td><%= button_to '✔ Friend', friend, method: :delete, data: { confirm: 'Do you want to Unfriend?' } %></td>
+            <td><%= button_to '✔ Friend', friend, method: :delete, data: { confirm: 'Do you want to Unfriend?' }, :class => "btn btn-success" %></td>
           <% end %>
           <% break %>
         <% else %>
@@ -62,7 +62,7 @@ $(document).ready(function(){
               <%= f.hidden_field(:status, :value => false) %>
             </div>
             <div class="actions">
-              <td><%= f.submit "Send Friend Request" %></td>
+              <td><%= f.submit "Send Friend Request", :class => "btn btn-info" %></td>
             </div>
           <% end %>
         <% end %>
