@@ -8,11 +8,7 @@ $(document).ready(function(){
 <% if flash[:error] %>
       <p class="error"><%= flash[:error] %></p>
 <% end %>
-
-<legend>Update Status</legend>
-
 <%= render 'form' %>
-
 <legend>Status Updates</legend>
 
 <table id="st" class="table table-striped">
@@ -39,6 +35,4 @@ $(document).ready(function(){
 </table>
 
 <br />
-
-&nbsp;<%= link_to '<i class="icon-share"></i> New Status'.html_safe, new_status_update_path, :class => "btn btn-info" %>
 <br /><br />

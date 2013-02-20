@@ -9,11 +9,9 @@ $(document).ready(function(){
   <% if current_user %>
     <% i=0 %>
     <% @users.each do |user| %>
-      <% Friend.where("to_user_id=?", current_user.id).each do |friend| %>
+      <% @friends.each do |friend| %>
         <% if friend.user_id == user.id %>
-          <% if friend.status == false %>
-            <% i += 1 %>      
-          <% end %>
+          <% i += 1 %>      
         <% end %>
       <% end %>
     <% end %>
@@ -25,9 +23,15 @@ $(document).ready(function(){
     <% end %><br /><br />
     <%= link_to '<i class="icon-th-list"></i> Status Update'.html_safe, status_updates_path, :class => "btn btn-info" %>
     <br /><br /><br />
-    <%= link_to "Status Update", status_updates_path, :remote => true %>
+    <% if i == 1 %>
+      <legend>Notification</legend>
+      <%= link_to "#{i} Friend Request", friends_path, :class => "btn btn-link" %>
+    <% elsif i > 1 %>
+      <legend>Notification</legend>
+      <%= link_to "#{i} Friend Requests", friends_path, :class => "btn btn-link" %>
+    <% end %><br />
     </div>
-    <div id="status" class="offset1 span8">
+    <div id="status" class="offset1 span12">
       <legend>Latest Status</legend>
       <table class="table table-striped">
         <tr>
@@ -41,13 +45,6 @@ $(document).ready(function(){
         <%= render :partial => "status_updates/status_update", :collection => @status_updates %>
       </table>
     </div>
-    <% if i == 1 %>
-      <h3><b>Notification</b></h3>
-      <%= link_to "#{i} Friend Request", friends_path %>
-    <% elsif i > 1 %>
-      <h3><b>Notification</b></h3>
-      <%= link_to "#{i} Friend Requests", friends_path %>
-    <% end %><br />
   <% else %>
     <center><h3>Welcome Guest</h3>
     <%= link_to 'SignIn', new_user_session_path, :class => "btn btn-info" %>&nbsp;&nbsp;&nbsp;

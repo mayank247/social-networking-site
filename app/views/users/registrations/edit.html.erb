@@ -1,47 +1,60 @@
-<legend>Edit <%= resource_name.to_s.humanize %></legend>
+<br /><br /><br /><br />
+<div class="row-fluid">
+  <div class="offset2 span8 well">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "form-inline" }) do |f| %>
+      <%= devise_error_messages! %>
+      <fieldset>
+        <center><legend>Edit profile</legend></center>
+        <div class="control-group">
+          <%= f.label :name %><br />
+          <%= f.text_field :name %>
+        </div>
+      
+        <div class="control-group">
+          <%= f.label :gender %><br />
+          <%= f.radio_button :gender, "Male" %>&nbsp;&nbsp;<%= f.label :male %>&nbsp;&nbsp;
+          <%= f.radio_button :gender, "Female" %>&nbsp;&nbsp;<%= f.label :female %>
+        <div>
+      
+        <div class="control-group">
+          <%= f.label :dob %><br />
+          <%= f.date_select :dob, :start_year => Time.now.year - 18, :end_year => Time.now.year - 60 %>
+        </div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "form-inline" }) do |f| %>
-  <%= devise_error_messages! %>
-  
-  <div>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+        <div class="control-group">
+          <%= f.label :email %><br />
+          <%= f.email_field :email %>
+        </div>
+      
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="control-group">Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+
+        <div class="control-group">
+          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+          <%= f.password_field :password, :autocomplete => "off" %>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation %>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+          <%= f.password_field :current_password %>
+        </div>
+      
+        <div class="form-actions">
+          <center><%= f.submit "Save", :class => "btn btn-info" %></center>
+        </div>
+      </fieldset>
+    <% end %>
+    <legend>Deactivate your account</legend>
+    <p>
+      Unhappy?
+      <%= button_to "Deactivate", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "btn btn-danger" %>
+    </p>
+    <%= link_to "Back", :back, :class => "btn btn-link" %>
   </div>
-  
-  <div>
-    <%= f.label :gender %><br />
-    <%= f.label :male %>
-    <%= f.radio_button :gender, "Male" %>
-    <%= f.label :female %>
-    <%= f.radio_button :gender, "Female" %>
-  <div>
-  
-  <div>
-    <%= f.label :dob %><br />
-    <%= f.date_select :dob, :start_year => Time.now.year - 18, :end_year => Time.now.year - 60 %>
-  </div>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-  
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
-  
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<%= link_to "Back", :back, :class => "btn btn-link" %>
+</div>

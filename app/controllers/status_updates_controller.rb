@@ -1,7 +1,6 @@
 class StatusUpdatesController < ApplicationController
   before_filter :authenticate_user!
-  # GET /status_updates
-  # GET /status_updates.json
+  
   def index
     @friend = Friend.where("user_id=? AND status=?", current_user.id, true)
     items = Array.new
@@ -13,8 +12,6 @@ class StatusUpdatesController < ApplicationController
     @status_updates = StatusUpdate.where(:user_id => items).order("created_at DESC")
   end
 
-  # GET /status_updates/1
-  # GET /status_updates/1.json
   def show
     @status_update = StatusUpdate.find(params[:id])
     
@@ -24,8 +21,6 @@ class StatusUpdatesController < ApplicationController
     end
   end
 
-  # GET /status_updates/new
-  # GET /status_updates/new.json
   def new
     @status_update = StatusUpdate.new
     
@@ -35,36 +30,15 @@ class StatusUpdatesController < ApplicationController
     end
   end
 
-  # GET /status_updates/1/edit
-  def edit
-    @status_update = StatusUpdate.find(params[:id])
-  end
-
-  # POST /status_updates
-  # POST /status_updates.json
   def create
     @status_update = StatusUpdate.new(params[:status_update])
-    @status_update.save
-  end
-
-  # PUT /status_updates/1
-  # PUT /status_updates/1.json
-  def update
-    @status_update = StatusUpdate.find(params[:id])
-
-    respond_to do |format|
-      if @status_update.update_attributes(params[:status_update])
-        format.html { redirect_to @status_update, notice: 'Status update was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @status_update.errors, status: :unprocessable_entity }
-      end
+    @status = @status_update.save
+    
+    unless @status
+      render :index, :notice => "Message cannot be empty!"
     end
   end
 
-  # DELETE /status_updates/1
-  # DELETE /status_updates/1.json
   def destroy
     @status_update = StatusUpdate.find(params[:id])
     if @status_update.user_id == current_user.id

@@ -1,38 +1,38 @@
 <br /><br />
 <div class="row-fluid">
   <div class="offset2 span8 well">
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-inline" }) do |f| %>
       <%= devise_error_messages! %>
       <fieldset>
         <center><legend>SignUp Form</legend></center>
         <div class="control-group">
-          <%= f.label :name %>
+          <%= f.label :name %><br />
           <%= f.text_field :name, :autofocus => true %>
         </div>
   
-        <div class="control">
-          <%= f.label :gender %>
-          <%= f.label :male %><%= f.radio_button :gender, "Male" %>
-          <%= f.label :female %><%= f.radio_button :gender, "Female" %>
+        <div class="control-group">
+          <%= f.label :gender %><br />
+          <%= f.radio_button :gender, "Male" %>&nbsp;&nbsp;<%= f.label :male %>&nbsp;&nbsp;
+          <%= f.radio_button :gender, "Female" %>&nbsp;&nbsp;<%= f.label :female %>
         <div>
   
         <div class="control-group">
-          <%= f.label :dob %>
+          <%= f.label :dob %><br />
           <%= f.date_select :dob, :start_year => Time.now.year - 18, :end_year => Time.now.year - 60 %>
         </div>
 
         <div class="control-group">
-          <%= f.label :email %>
+          <%= f.label :email %><br />
           <%= f.email_field :email %>
         </div>
 
         <div class="control-group">
-          <%= f.label :password %>
+          <%= f.label :password %><br />
           <%= f.password_field :password %>
         </div>
 
         <div class="control-group">
-          <%= f.label :password_confirmation %>
+          <%= f.label :password_confirmation %><br />
           <%= f.password_field :password_confirmation %>
         </div>
 
