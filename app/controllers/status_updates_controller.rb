@@ -14,7 +14,7 @@ class StatusUpdatesController < ApplicationController
 
   def show
     @status_update = StatusUpdate.find(params[:id])
-    
+    @comment = @status_update.comments
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @status_update }
