@@ -7,10 +7,9 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @status_update = StatusUpdate.find(params[:status_update_id])
-    
-    @comment = @status_update.comments.where(:id => params[:id])[0]
-    if @status_update.user_id == current_user.id || @comment.user_id == current_user.id
+    @comment = current_user.comments.where(:id => params[:id])[0]
+    @status_update = @comment.status_update
+    if @status_update.user_id == current_user.id
         @comment.destroy
     else
       flash[:error] = "You don't have permission to delete this comments"

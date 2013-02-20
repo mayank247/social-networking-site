@@ -1,29 +1,16 @@
 class FriendsController < ApplicationController
   before_filter :authenticate_user!
-  # GET /friends
-  # GET /friends.json
+  
   def index
     @users = User.all
     @friende = Friend.new
     @friends = Friend.where("to_user_id=?", current_user.id)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @friends }
-    end
   end
 
-  # GET /friends/1
-  # GET /friends/1.json
   def show
     @friend = Friend.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @friend }
-    end
   end
 
-  # GET /friends/new
-  # GET /friends/new.json
   def new
     @friend = Friend.new
     @users = User.all

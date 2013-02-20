@@ -14,33 +14,23 @@ class StatusUpdatesController < ApplicationController
 
   def show
     @status_update = StatusUpdate.find(params[:id])
-    @comment = @status_update.comments
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @status_update }
-    end
   end
 
   def new
     @status_update = StatusUpdate.new
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @status_update }
-    end
   end
 
   def create
     @status_update = StatusUpdate.new(params[:status_update])
-    @status = @status_update.save
+    if @status_update.save
     
-    unless @status
-      render :index, :notice => "Message cannot be empty!"
+    else
+    
     end
   end
 
   def destroy
-    @status_update = StatusUpdate.where("id=? AND user_id=?", params[:id], current_user.id)[0]
+    @status_update = current_user.status_updates.where("id=?", params[:id])[0]
     if @status_update.present?
       @status_update.destroy
     else

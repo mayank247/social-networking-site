@@ -16,18 +16,7 @@ $(document).ready(function(){
     <th></th>
     <th></th>
   </tr>
-
-<% @status_updates.each do |status_update| %>
-  <tr>
-    <td><%= status_update.user.name %></td>
-    <td><%= status_update.body %></td>
-    <td><%= status_update.timestamp.strftime("%I:%M %p %b %d, %Y") %></td>
-    <td><%= link_to '<i class="icon-fullscreen"></i> Show'.html_safe, status_update, :class => "btn btn-success" %>
-    <% if current_user.id == status_update.user_id %>
-      <%= link_to '<i class="icon-trash"></i> Delete'.html_safe, status_update, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
-    <% end %></td>
-  </tr>
-<% end %>
+  <%= render :partial => "status_update", :collection => @status_updates %>
 </table>
 
 <br />
