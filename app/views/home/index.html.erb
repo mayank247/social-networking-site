@@ -36,21 +36,19 @@ $(document).ready(function(){
     
     <div id="status" class="offset1 span12">
       <legend>Latest Status</legend>
-      <% if @status_updates.present? %>
-        <table class="table table-striped">
-          <tr>
-            <th>User</th>
-            <th>Body</th>
-            <th>Timestamp</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-          <%= render :partial => "status_updates/status_update", :collection => @status_updates %>
-        </table>
-      <% else %>
-        <h4>No Latest status available</h4>
-      <% end %>
+      
+      <table class="table table-striped">
+        <tr>
+          <th>User</th>
+          <th>Body</th>
+          <th>Timestamp</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <%= render :partial => "status_updates/status_update", :collection => @status_updates %>
+      </table>
+      
     </div>
   <% else %>
     <center><h3>Welcome Guest</h3>
