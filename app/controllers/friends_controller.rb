@@ -5,6 +5,7 @@ class FriendsController < ApplicationController
   def index
     @users = User.all
     @friende = Friend.new
+    @friends = Friend.where("to_user_id=?", current_user.id)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @friends }

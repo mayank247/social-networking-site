@@ -40,11 +40,11 @@ class StatusUpdatesController < ApplicationController
   end
 
   def destroy
-    @status_update = StatusUpdate.find(params[:id])
-    if @status_update.user_id == current_user.id
+    @status_update = StatusUpdate.where("id=? AND user_id=?", params[:id], current_user.id)[0]
+    if @status_update.present?
       @status_update.destroy
     else
-      flash[:error] = "You don't have permission to delete this post"
+      flash[:error] = "You don't have permission to delete this post."
     end
 
     respond_to do |format|

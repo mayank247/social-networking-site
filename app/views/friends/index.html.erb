@@ -4,44 +4,41 @@ $(document).ready(function(){
     $("table").show(2000);
 });
 </script>
-<br /><br />
 <legend>Friend List</legend>
 
-<table class="table table-striped">
-  <tr>
-    <th>User Name</th>
-    <th>Email</th>
-  </tr>
-<% i=0 %>
-<% @users.each do |user| %>
-    
-    <% Friend.where("to_user_id=?", current_user.id).each do |friend| %>
-    
-      <% if friend.user_id == user.id %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <% if friend.status == true %>
-            <% i=1 %>     
-        <% else %>
-          <%= form_for(@friende) do |f| %>
-            <%= f.hidden_field(:user_id, :value => current_user.id) %>
-            <%= f.hidden_field(:to_user_id, :value => user.id) %>
-            <%= f.hidden_field(:status, :value => true) %>
-            <td><%= f.submit "Confirm?", :class => "btn btn-success" %>
-            <%= link_to 'Cancel', friend, method: :delete, :class => "btn btn-danger" %></td>
+
+
+<% if @friends.present? %>
+  <table class="table table-striped">
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+    </tr>
+    <% @users.each do |user| %>
+      <% @friends.each do |friend| %>
+      
+        <% if friend.user_id == user.id %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <% if friend.status == false %>
+            <%= form_for(@friende) do |f| %>
+              <%= f.hidden_field(:user_id, :value => current_user.id) %>
+              <%= f.hidden_field(:to_user_id, :value => user.id) %>
+              <%= f.hidden_field(:status, :value => true) %>
+              <td><%= f.submit "Confirm?", :class => "btn btn-success" %>
+              <%= link_to 'Cancel', friend, method: :delete, :class => "btn btn-danger" %></td>
+            <% end %>
           <% end %>
-          
+        </tr>
         <% end %>
-        <% break %>
-      </tr>
       <% end %>
     <% end %>
+  </table>
+<% else %>
+<h4>Empty Friends List</h4><br />
 <% end %>
-<% if i==0 %>
-Empty Friends List 
-<% end %>
-</table>
+
 
 <br />
 <%= link_to 'New Friends or Maintain Friends', new_friend_path, :class => "btn btn-info" %>

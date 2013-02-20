@@ -4,15 +4,11 @@ $(document).ready(function(){
     $("table").show(2000);
 });
 </script>
-<br /><br /><br />
-<% if flash[:error] %>
-      <p class="error"><%= flash[:error] %></p>
-<% end %>
 <%= render 'form' %>
 <legend>Status Updates</legend>
 
 <table id="st" class="table table-striped">
-  <tr>
+  <tr id="trh">
     <th>User</th>
     <th>Body</th>
     <th>Timestamp</th>

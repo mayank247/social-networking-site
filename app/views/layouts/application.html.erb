@@ -37,18 +37,20 @@
       <% else %>
         <ul class="nav pull-right">
           <li><%= link_to '<i class="icon-home"></i> Home'.html_safe, root_path %></li>
-          <li><a href="#"><i class="icon-book"></i> About us</a></li> 
-          <li><a href="#"><i class="icon-envelope"></i> Contact us</a></li>  
+          <li><a href="http://www.grepruby.com/about"><i class="icon-book"></i> About us</a></li> 
+          <li><a href="http://www.grepruby.com/contact-us"><i class="icon-envelope"></i> Contact us</a></li>  
         </ul>
       <% end %>
     </div>  
   </div>  
 </div> 
+<br /><br /><br />
 <% if flash[:notice] %>
-  <br /><br /><br />
   <p id="notice" class="alert alert-success"><%= notice %></p>
 <% end %>
-
+<% if flash[:error] %>
+  <p id="error" class="alert alert-error"><%= flash[:error] %></p>
+<% end %>
 
 <%= yield %>
 

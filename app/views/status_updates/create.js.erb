@@ -1,1 +1,2 @@
-$("#st").append("<%= escape_javascript(render :partial => "status_updates/status_update", :locals => {:status_update => @status_update}) %>");
+$("#trh").after("<%= escape_javascript(render :partial => "status_updates/status_update", :locals => {:status_update => @status_update}) %>");
+document.getElementById("status_update_body").value = "";
