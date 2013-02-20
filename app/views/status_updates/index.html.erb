@@ -6,18 +6,20 @@ $(document).ready(function(){
 </script>
 <%= render 'form' %>
 <legend>Status Updates</legend>
-
-<table id="st" class="table table-striped">
-  <tr id="trh">
-    <th>User</th>
-    <th>Body</th>
-    <th>Timestamp</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <%= render :partial => "status_update", :collection => @status_updates %>
-</table>
-
+<% if @status_updates.present? %>
+  <table id="st" class="table table-striped">
+    <tr id="trh">
+      <th>User</th>
+      <th>Body</th>
+      <th>Timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <%= render :partial => "status_update", :collection => @status_updates %>
+  </table>
+<% else %>
+  <h4>No status available</h4>
+<% end %>
 <br />
 <br /><br />
