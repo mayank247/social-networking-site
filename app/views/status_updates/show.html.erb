@@ -12,11 +12,11 @@
   <%= @status_update.timestamp.strftime("%I:%M %p %b %d, %Y") %>&nbsp;&nbsp;
   <% i=0 %>
   <% count=0 %>
-  <% count = @status_update.likes.count(:all) %>
+  <% count = count_like_on_status(@status_update) %>
 
-  <% @like = @status_update.likes.where(:user_id => current_user.id)[0] %>
-  <% if @like %>
-      <%= link_to 'Unlike', status_update_like_path(@status_update, @like), :method => :delete, :class => "btn btn-link" %>
+  <% like = check_like_on_status(@status_update) %>
+  <% if like %>
+      <%= link_to 'Unlike', status_update_like_path(@status_update, like), :method => :delete, :class => "btn btn-link" %>
   <% else %>
       <%= link_to 'Like', new_status_update_like_path(@status_update), :class => "btn btn-link" %>
   <% end %>
