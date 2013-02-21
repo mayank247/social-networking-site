@@ -3,7 +3,7 @@ class FriendsController < ApplicationController
   
   def index
     @users = User.all
-    @friende = Friend.new
+    @friend = Friend.new
     @friends = Friend.where("to_user_id=?", current_user.id)
   end
 
@@ -14,10 +14,7 @@ class FriendsController < ApplicationController
   def new
     @friend = Friend.new
     @users = User.all
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @friend }
-    end
+    @friends_pending = Friend.friends_request_pending(current_user)
   end
 
   def create
@@ -25,8 +22,7 @@ class FriendsController < ApplicationController
     respond_to do |format|
       if @friend.save
         if @friend.status == true
-          @friende = Friend.where("user_id=? AND to_user_id=?", @friend.to_user_id, @friend.user_id)[0]
-          if @friende.update_attribute(:status, true)
+          if Friend.friends_details(@friend.to_user_id, @friend.user_id)[0].update_attribute(:status, true)
             format.html { redirect_to friends_path }
             format.json { head :no_content }
           end
@@ -44,13 +40,12 @@ class FriendsController < ApplicationController
   def destroy
     @friend = Friend.find(params[:id])
     if @friend.status == true
-      @friende = Friend.where("user_id=? AND to_user_id=?", @friend.to_user_id, @friend.user_id)[0]
+      @friende = Friend.friends_details(@friend.to_user_id, @friend.user_id)[0]
       @friende.destroy
     end
     @friend.destroy
     respond_to do |format|
       format.html { redirect_to friends_path }
-      format.json { head :no_content }
     end
   end
   

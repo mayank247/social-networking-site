@@ -22,7 +22,7 @@ $(document).ready(function(){
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <% if friend.status == false %>
-            <%= form_for(@friende) do |f| %>
+            <%= form_for(@friend) do |f| %>
               <%= f.hidden_field(:user_id, :value => current_user.id) %>
               <%= f.hidden_field(:to_user_id, :value => user.id) %>
               <%= f.hidden_field(:status, :value => true) %>
