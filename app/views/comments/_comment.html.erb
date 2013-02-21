@@ -2,16 +2,7 @@
   <td><b><%= comment.user.name %> : </b></td>
   <td><%= comment.body %>&nbsp;&nbsp;</td>
   <td><%= comment.timestamp.strftime("%I:%M %p %b %d, %Y") %> | </td>
-  <% count = count_like_on_comment(comment) %>
-
-  <% like_comment = check_like_on_comment(comment) %>
-  <% if like_comment %>
-    <td><%= link_to 'Unlike', status_update_comment_like_comment_path(@status_update, comment, like_comment), :method => :delete, :class => "btn btn-link" %></td>
-  <% else %>
-      <td><%= link_to 'Like', new_status_update_comment_like_comment_path(@status_update, comment), :class => "btn btn-link" %></td>
-  <% end %>
-  <td> |&nbsp; Total Likes : <%= count %></td>
-  <% if current_user.id == comment.user_id || current_user.id == @status_update.user_id %>
-    <td>&nbsp;| <%= link_to 'Delete', [comment.status_update, comment], :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-link" %></td>
-  <% end %>
+  <td><%= check_like_on_comment(comment) %></td>
+  <td> |&nbsp; Total Likes : <%= count_like_on_comment(comment) %></td>
+  <td>&nbsp;| <%= check_destroy_comment_authority(comment) %></td>
 </tr>

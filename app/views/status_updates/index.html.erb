@@ -1,7 +1,6 @@
-
-<%= render 'form' %>
-<legend>Status Updates</legend>
-
+<div class="offset1 span12">
+  <%= render 'form' %>
+  <legend>Status Updates</legend>
   <table id="st" class="table table-striped">
     <tr id="trh">
       <th>User</th>
@@ -13,6 +12,6 @@
     </tr>
     <%= render :partial => "status_update", :collection => @status_updates %>
   </table>
-
+</div>
 <br />
 <br /><br />

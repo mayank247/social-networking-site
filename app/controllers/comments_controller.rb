@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @comment = current_user.comments.where(:id => params[:id])[0]
+    @comment = Comment.find(params[:id])
     @status_update = @comment.status_update
     if @status_update.user_id == current_user.id
         @comment.destroy
